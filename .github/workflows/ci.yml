@@ -22,7 +22,7 @@ jobs:
       - name: Ustaw Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '20.x'
           cache: npm
 
       - name: Zainstaluj zależności
@@ -43,7 +43,7 @@ jobs:
       - name: Ustaw Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '20.x'
           cache: npm
 
       - name: Zainstaluj zależności
@@ -64,7 +64,7 @@ jobs:
       - name: Ustaw Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '20.x'
           cache: npm
 
       - name: Zainstaluj zależności
