@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Pobierz kod
+        uses: actions/checkout@v4
+
+      - name: Ustaw Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Zainstaluj zależności
+        run: npm ci
+
+      - name: Uruchom lint
+        run: npm run lint
+
+  test:
+    name: Testy
+    runs-on: ubuntu-latest
+    needs: lint
+
+    steps:
+      - name: Pobierz kod
+        uses: actions/checkout@v4
+
+      - name: Ustaw Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Zainstaluj zależności
+        run: npm ci
+
+      - name: Uruchom testy
+        run: npm test
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Pobierz kod
+        uses: actions/checkout@v4
+
+      - name: Ustaw Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Zainstaluj zależności
+        run: npm ci
+
+      - name: Uruchom build
+        run: npm run build
